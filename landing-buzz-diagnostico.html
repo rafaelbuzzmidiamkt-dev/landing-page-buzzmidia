@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buzz Mídia · Aceleradora de E-commerces</title>
+<link rel="icon" type="image/png" href="./assets/favicon.png">
+<link rel="apple-touch-icon" href="./assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14110C;
+    --ink-soft:#221D15;
+    --ink-line: rgba(247,243,234,0.10);
+    --honey:#303CFC;
+    --honey-bright:#5660FF;
+    --teal:#111AA2;
+    --teal-bright:#141EC0;
+    --cta:#F4B400;
+    --cta-bright:#FFC72C;
+    --paper:#F7F3EA;
+    --paper-dim:#EFE9DA;
+    --sand:#B9AE93;
+    --white:#FBF8F2;
+    --ink-text:#231F17;
+    --maxw: 1180px;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ink);
+    color:var(--white);
+    font-family:'Inter', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  h1,h2,h3, .display{
+    font-family:'Figtree', sans-serif;
+    letter-spacing:-0.01em;
+  }
+  .mono{
+    font-family:'Inter', sans-serif;
+    letter-spacing:0.02em;
+  }
+
+  a{color:inherit;}
+  img,svg{display:block; max-width:100%;}
+
+  .wrap{
+    width:92%;
+    max-width:var(--maxw);
+    margin:0 auto;
+  }
+
+  /* funnel narrowing rhythm — each section is a bit narrower than the last */
+  .funnel-1{ max-width: var(--maxw); }
+  .funnel-2{ max-width: 980px; }
+  .funnel-3{ max-width: 800px; }
+  .funnel-4{ max-width: 620px; }
+
+  section{ position:relative; padding:96px 0; }
+  @media (max-width:720px){ section{ padding:64px 0; } }
+
+  /* ---------- eyebrow / labels ---------- */
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    font-family:'Inter', sans-serif;
+    font-size:12.5px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--honey-bright);
+    margin-bottom:22px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:7px; height:7px;
+    background:var(--honey);
+    border-radius:50%;
+    box-shadow:0 0 0 4px rgba(48,60,252,0.10);
+  }
+  .eyebrow.pill{
+    border:1px solid var(--ink-line);
+    background:rgba(247,243,234,0.03);
+    border-radius:999px;
+    padding:8px 18px 8px 14px;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding-top:104px;
+    background:
+      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(17,26,162,0.16), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 0%, rgba(48,60,252,0.06), transparent 55%),
+      transparent;
+    border-bottom:1px solid var(--ink-line);
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap:56px;
+    align-items:center;
+  }
+  @media (max-width:920px){ .hero-grid{ grid-template-columns:1fr; } }
+
+  .hero h1{
+    font-size:clamp(2.1rem, 4.1vw, 3.4rem);
+    line-height:1.08;
+    font-weight:600;
+    color:var(--white);
+  }
+  .hero h1 em{
+    font-style:normal;
+    color:var(--honey-bright);
+  }
+  .hero p.lede{
+    margin-top:22px;
+    font-size:1.08rem;
+    line-height:1.6;
+    color:var(--sand);
+    max-width:60ch;
+  }
+
+  .cta-row{
+    margin-top:36px;
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+    align-items:center;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    font-family:'Figtree', sans-serif;
+    font-weight:600;
+    font-size:1rem;
+    padding:15px 26px;
+    border-radius:8px;
+    border:1px solid transparent;
+    cursor:pointer;
+    text-decoration:none;
+    transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+  }
+  .btn-primary{
+    background:var(--cta);
+    color:var(--ink);
+    box-shadow:0 1px 0 rgba(0,0,0,0.15) inset, 0 10px 30px -12px rgba(244,180,0,0.45);
+  }
+  .btn-primary:hover{ background:var(--cta-bright); transform:translateY(-1px); }
+  .btn-ghost{
+    background:transparent;
+    color:var(--white);
+    border-color:var(--ink-line);
+  }
+  .btn-ghost:hover{ border-color:var(--sand); }
+
+  .microcopy{
+    margin-top:14px;
+    font-size:12.5px;
+    color:var(--sand);
+    font-family:'Inter', sans-serif;
+  }
+
+  /* ---------- hero curve visual ---------- */
+  .curve-card{
+    background:var(--ink-soft);
+    border:1px solid var(--ink-line);
+    border-radius:14px;
+    padding:26px 24px 22px;
+    transition:box-shadow .6s cubic-bezier(.22,1,.36,1), border-color .6s cubic-bezier(.22,1,.36,1);
+    will-change:transform;
+    transform-style:preserve-3d;
+  }
+  .curve-card:hover{
+    box-shadow:0 1.5rem 4rem -1rem rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05), 0 0 3rem rgba(48,60,252,0.14);
+    border-color:rgba(48,60,252,0.35);
+  }
+  .curve-card .cc-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    margin-bottom:8px;
+  }
+  .cc-head .cc-title{ font-size:13px; color:var(--sand); font-family:'Inter', sans-serif; letter-spacing:.04em;}
+  .cc-head .cc-tag{ font-size:11px; color:var(--teal-bright); font-family:'Inter', sans-serif;}
+
+  .cc-hero-stat{
+    display:flex;
+    align-items:baseline;
+    gap:12px;
+    flex-wrap:wrap;
+    padding-bottom:16px;
+    margin-bottom:14px;
+    border-bottom:1px solid var(--ink-line);
+  }
+  .cc-hero-num{
+    font-family:'Figtree', sans-serif;
+    font-size:2.1rem;
+    font-weight:700;
+    color:var(--honey-bright);
+    line-height:1;
+  }
+  .cc-hero-lab{
+    font-family:'Inter', sans-serif;
+    font-size:11.5px;
+    color:var(--sand);
+  }
+
+  #curveSvg .val-label text{
+    font-family:'Inter', sans-serif;
+    font-size:12px;
+    fill:var(--sand);
+    opacity:0;
+    animation:fadein .5s ease-out forwards;
+    animation-delay:1.3s;
+  }
+  #curveSvg .val-label text.val-peak{
+    fill:var(--honey-bright);
+    font-weight:600;
+    font-size:13px;
+  }
+  #curveSvg .month-label text{
+    font-family:'Inter', sans-serif;
+    font-size:11px;
+    fill:var(--sand);
+    opacity:0.7;
+  }
+  #curveSvg path.line{
+    fill:none;
+    stroke:var(--honey);
+    stroke-width:2.5;
+    stroke-linecap:round;
+    stroke-dasharray:900;
+    stroke-dashoffset:900;
+    animation:draw 2.1s .3s ease-out forwards;
+  }
+  #curveSvg path.area{
+    fill:url(#curveFill);
+    opacity:0;
+    animation:fadein 1.2s 1.6s ease-out forwards;
+  }
+  #curveSvg .grid line{ stroke:var(--ink-line); stroke-width:1; }
+
+  #curveSvg .bar{
+    fill:url(#barGrad);
+    opacity:0.9;
+    transform-box:fill-box;
+    transform-origin:bottom;
+    transform:scaleY(0);
+    animation:growBar .8s ease-out forwards;
+  }
+  #curveSvg .bar-peak{
+    fill:url(#barGradPeak);
+    opacity:1;
+  }
+  #curveSvg .bar:nth-of-type(1){ animation-delay:.15s; }
+  #curveSvg .bar:nth-of-type(2){ animation-delay:.3s; }
+  #curveSvg .bar:nth-of-type(3){ animation-delay:.45s; }
+  #curveSvg .bar:nth-of-type(4){ animation-delay:.6s; }
+  #curveSvg .bar:nth-of-type(5){ animation-delay:.75s; }
+  #curveSvg .bar:nth-of-type(6){ animation-delay:.9s; }
+  @keyframes growBar{ from{ transform:scaleY(0); } to{ transform:scaleY(1); } }
+
+  .metrics-strip{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+    margin-top:20px;
+    border-top:1px solid var(--ink-line);
+    padding-top:18px;
+  }
+  .metrics-strip .m-val{
+    font-family:'Figtree', sans-serif;
+    font-size:1.5rem;
+    font-weight:600;
+    color:var(--white);
+  }
+  .metrics-strip .m-val span{ color:var(--teal-bright); font-size:1rem; }
+  .metrics-strip .m-lab{
+    font-family:'Inter', sans-serif;
+    font-size:10.5px;
+    color:var(--sand);
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    margin-top:4px;
+  }
+
+  /* ---------- section: para quem (paper) ---------- */
+  .paper-section{
+    background:var(--paper);
+    color:var(--ink-text);
+  }
+  .paper-section .eyebrow{ color:var(--teal); }
+  .paper-section .eyebrow::before{ background:var(--teal); box-shadow:0 0 0 4px rgba(17,26,162,0.08); }
+  .paper-section h2{
+    font-size:clamp(1.6rem,3vw,2.2rem);
+    font-weight:600;
+    line-height:1.15;
+    margin-bottom:40px;
+    max-width:22ch;
+  }
+
+  .fit-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:28px;
+  }
+  @media (max-width:720px){ .fit-grid{ grid-template-columns:1fr; } }
+  .fit-card{
+    background:var(--white);
+    border:1px solid rgba(20,17,12,0.08);
+    border-radius:12px;
+    padding:26px 24px;
+  }
+  .fit-card h3{
+    font-size:.95rem;
+    font-family:'Inter', sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+    margin-bottom:16px;
+  }
+  .fit-card.yes h3{ color:var(--teal); }
+  .fit-card.no h3{ color:#9B5A3B; }
+  .fit-card ul{ list-style:none; }
+  .fit-card li{
+    display:flex;
+    gap:10px;
+    padding:9px 0;
+    font-size:.96rem;
+    line-height:1.5;
+    border-top:1px solid rgba(20,17,12,0.07);
+  }
+  .fit-card li:first-child{ border-top:none; }
+  .fit-card.yes li::before{ content:"+"; color:var(--teal); font-weight:700; }
+  .fit-card.no li::before{ content:"–"; color:#9B5A3B; font-weight:700; }
+
+  /* ---------- metodologia (ink, narrower — funnel) ---------- */
+  .method-section{
+    background:transparent;
+    border-top:1px solid var(--ink-line);
+    border-bottom:1px solid var(--ink-line);
+  }
+  .method-section h2{
+    font-size:clamp(1.6rem,3vw,2.2rem);
+    font-weight:600;
+    line-height:1.18;
+    margin-bottom:12px;
+  }
+  .method-section .lede{ color:var(--sand); max-width:60ch; margin-bottom:52px; line-height:1.6; }
+
+  .stage{
+    display:grid;
+    grid-template-columns:150px 1fr;
+    gap:28px;
+    padding:30px 0;
+    border-top:1px solid var(--ink-line);
+    align-items:start;
+  }
+  .stage:last-child{ border-bottom:1px solid var(--ink-line); }
+  @media (max-width:640px){ .stage{ grid-template-columns:1fr; gap:10px; } }
+
+  .stage .stage-tag{
+    font-family:'Inter', sans-serif;
+    font-size:12px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--honey-bright);
+    padding-top:3px;
+  }
+  .stage h3{
+    font-size:1.2rem;
+    font-weight:600;
+    margin-bottom:8px;
+  }
+  .stage p{ color:var(--sand); line-height:1.6; font-size:.98rem; max-width:56ch; }
+
+  /* ---------- entrega (paper, narrower) ---------- */
+  .deliver-section{ background:var(--paper); color:var(--ink-text); }
+  .deliver-section .eyebrow{ color:var(--teal); }
+  .deliver-section .eyebrow::before{ background:var(--teal); box-shadow:0 0 0 4px rgba(17,26,162,0.08); }
+  .deliver-section h2{
+    font-size:clamp(1.5rem,2.8vw,2rem);
+    font-weight:600;
+    margin-bottom:34px;
+    max-width:26ch;
+  }
+  .check-list{ list-style:none; display:flex; flex-direction:column; gap:0; }
+  .check-list li{
+    display:flex;
+    gap:16px;
+    align-items:flex-start;
+    padding:18px 0;
+    border-top:1px solid rgba(20,17,12,0.1);
+    font-size:1rem;
+    line-height:1.55;
+  }
+  .check-list li:last-child{ border-bottom:1px solid rgba(20,17,12,0.1); }
+  .check-mark{
+    flex:none;
+    width:22px; height:22px;
+    border-radius:50%;
+    background:var(--teal);
+    color:var(--white);
+    font-family:'Inter', sans-serif;
+    font-size:12px;
+    display:flex; align-items:center; justify-content:center;
+    margin-top:2px;
+  }
+  .disclaimer{
+    margin-top:26px;
+    font-size:12.5px;
+    font-family:'Inter', sans-serif;
+    color:#6B6455;
+  }
+
+  /* ---------- CTA final (ink, narrowest — o vértice do funil) ---------- */
+  .final-section{
+    background:
+      radial-gradient(ellipse 700px 400px at 50% 0%, rgba(48,60,252,0.07), transparent 60%),
+      transparent;
+    text-align:center;
+  }
+  .final-section .eyebrow{ justify-content:center; }
+  .final-section h2{
+    font-size:clamp(1.7rem,3.4vw,2.4rem);
+    font-weight:600;
+    line-height:1.14;
+    margin-bottom:16px;
+  }
+  .final-section p.lede{
+    color:var(--sand);
+    max-width:44ch;
+    margin:0 auto 40px;
+    line-height:1.6;
+  }
+
+  .lead-form{
+    background:var(--ink-soft);
+    border:1px solid var(--ink-line);
+    border-radius:14px;
+    padding:32px;
+    text-align:left;
+  }
+  .field{ margin-bottom:18px; }
+  .field label{
+    display:block;
+    font-family:'Inter', sans-serif;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    color:var(--sand);
+    margin-bottom:8px;
+  }
+  .field input, .field select{
+    width:100%;
+    background:var(--ink);
+    border:1px solid var(--ink-line);
+    border-radius:8px;
+    padding:13px 14px;
+    color:var(--white);
+    font-family:'Inter', sans-serif;
+    font-size:.95rem;
+    outline:none;
+    transition:border-color .15s ease;
+  }
+  .field input:focus, .field select:focus{ border-color:var(--honey); }
+  .field input::placeholder{ color:#6B6455; }
+
+  .choice-group{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .choice-pill{
+    background:var(--ink);
+    border:1px solid var(--ink-line);
+    color:var(--sand);
+    font-family:'Inter', sans-serif;
+    font-size:.85rem;
+    padding:10px 16px;
+    border-radius:999px;
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .choice-pill:hover{ border-color:var(--sand); color:var(--white); }
+  .choice-pill.selected{
+    background:var(--honey);
+    border-color:var(--honey);
+    color:var(--ink);
+    font-weight:600;
+  }
+
+  .lead-form .btn-primary{
+    width:100%;
+    justify-content:center;
+    margin-top:6px;
+    font-size:1.02rem;
+  }
+  .form-note{
+    text-align:center;
+    margin-top:16px;
+    font-size:12px;
+    color:var(--sand);
+    font-family:'Inter', sans-serif;
+  }
+
+  /* ---------- footer ---------- */
+  footer{
+    border-top:1px solid var(--ink-line);
+    padding:80px 0 0;
+  }
+  .footer-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:48px;
+  }
+  @media (max-width:720px){ .footer-grid{ grid-template-columns:1fr; gap:40px; } }
+  .footer-brand img{ height:24px; width:auto; margin-bottom:18px; }
+  .footer-brand p{ color:var(--sand); font-size:.92rem; line-height:1.6; max-width:34ch; }
+
+  .footer-links{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:32px;
+  }
+  @media (max-width:560px){ .footer-links{ grid-template-columns:repeat(2,1fr); } }
+  .footer-col-title{
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    color:var(--sand);
+    opacity:0.6;
+    margin-bottom:18px;
+  }
+  .footer-col a, .footer-col span{
+    display:block;
+    font-size:.92rem;
+    color:var(--sand);
+    text-decoration:none;
+    margin-bottom:12px;
+    transition:color .2s ease;
+  }
+  .footer-col a:hover{ color:var(--white); }
+
+  .footer-bottom{
+    margin-top:56px;
+    padding:26px 0;
+    border-top:1px solid var(--ink-line);
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:10px;
+    font-size:12px;
+    color:var(--sand);
+    opacity:0.7;
+  }
+
+  /* ---------- site header ---------- */
+  .site-header{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    height:72px;
+    display:flex; align-items:center;
+    background:rgba(20,17,12,0.7);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--ink-line);
+  }
+  .site-header .wrap{ display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:20px; }
+  .site-header .brand{ display:flex; align-items:center; gap:10px; }
+  .site-header .brand-logo{ height:22px; width:auto; }
+  .site-nav{ display:flex; align-items:center; justify-content:center; gap:36px; }
+  @media (max-width:720px){ .site-nav{ display:none; } .site-header .wrap{ grid-template-columns:auto auto; } }
+  .btn-sm{ padding:9px 18px; font-size:.85rem; }
+  @media (max-width:520px){ .btn-sm{ display:none; } }
+  .site-nav a{
+    font-family:'Inter', sans-serif;
+    font-weight:500;
+    font-size:12px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--sand);
+    text-decoration:none;
+    transition:color .25s ease;
+  }
+  .site-nav a:hover{ color:var(--honey-bright); }
+
+  /* ---------- parallax background blobs ---------- */
+  .bg-layer{ position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none; }
+  .bg-blob{ position:absolute; border-radius:50%; filter:blur(100px); }
+  #bgBlob1{ top:-6rem; left:-4rem; width:32rem; height:32rem; opacity:0.11;
+    background:radial-gradient(circle, rgba(48,60,252,0.25) 0%, rgba(20,30,192,0.08) 50%, transparent 100%); }
+  #bgBlob2{ top:40%; right:-10rem; width:28rem; height:28rem; opacity:0.07;
+    background:radial-gradient(circle, rgba(86,96,255,0.3) 0%, rgba(17,26,162,0.08) 50%, transparent 100%); }
+  #bgBlob3{ bottom:-10rem; left:20%; width:24rem; height:24rem; opacity:0.06;
+    background:radial-gradient(circle, rgba(48,60,252,0.12) 0%, transparent 100%); }
+  .bg-grid{
+    position:absolute; inset:0; opacity:0.04;
+    background-image:linear-gradient(rgba(247,243,234,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(247,243,234,0.1) 1px, transparent 1px);
+    background-size:4rem 4rem;
+  }
+  body, section, footer{ position:relative; z-index:1; }
+  .paper-section, .deliver-section{ background-color:var(--paper); }
+
+  /* ---------- dual cursor ---------- */
+  .cursor-layer{ position:fixed; inset:0; z-index:9999; pointer-events:none; mix-blend-mode:screen; }
+  @media (max-width:768px){ .cursor-layer{ display:none; } }
+  #cursorDot{
+    position:absolute; top:0; left:0; height:8px; width:8px; border-radius:50%;
+    background:var(--white);
+    transform:translate(-50%,-50%);
+    transition:transform .2s ease;
+  }
+  #cursorGlow{
+    position:absolute; top:0; left:0; height:4rem; width:4rem; border-radius:50%;
+    background:rgba(86,96,255,0.28);
+    filter:blur(20px);
+    transform:translate(-50%,-50%);
+    transition:width .5s ease, height .5s ease, background .5s ease;
+  }
+  #cursorGlow.hovering{ width:6rem; height:6rem; background:rgba(86,96,255,0.4); }
+  #cursorDot.hovering{ transform:translate(-50%,-50%) scale(0); }
+
+  /* scroll reveal */
+  .reveal{ opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    #curveSvg path.line, #curveSvg path.area, #curveSvg .pt{ animation:none !important; opacity:1 !important; stroke-dashoffset:0 !important; }
+    .reveal{ opacity:1 !important; transform:none !important; transition:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor-layer">
+  <div id="cursorDot"></div>
+  <div id="cursorGlow"></div>
+</div>
+
+<div class="bg-layer">
+  <div id="bgBlob1" class="bg-blob" data-speed="0.05"></div>
+  <div id="bgBlob2" class="bg-blob" data-speed="-0.03"></div>
+  <div id="bgBlob3" class="bg-blob" data-speed="0.08"></div>
+  <div class="bg-grid"></div>
+</div>
+
+<header class="site-header">
+  <div class="wrap funnel-1">
+    <div class="brand">
+      <img src="./assets/buzz-logo-horizontal.png" alt="Buzz Mídia" class="cursor-hover brand-logo">
+    </div>
+    <nav class="site-nav">
+      <a href="#para-quem" class="cursor-hover">Para quem</a>
+      <a href="#metodologia" class="cursor-hover">Método</a>
+      <a href="#diagnostico" class="cursor-hover">Contato</a>
+    </nav>
+    <a href="#diagnostico" class="btn btn-primary btn-sm cursor-hover">Diagnóstico gratuito</a>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="wrap funnel-1 hero-grid">
+    <div>
+      <div class="eyebrow pill">Buzz Mídia · Aceleradora de e-commerce</div>
+      <h1>Todo e-commerce tem um ponto cego.<br><em>O seu está custando venda todos os dias</em>, e você ainda não sabe qual é.</h1>
+      <p class="lede">Não é falta de esforço. É não enxergar onde a venda está escapando.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary cursor-hover" href="#diagnostico">Quero meu diagnóstico gratuito →</a>
+        <a class="btn btn-ghost cursor-hover" href="#metodologia">Ver como funciona</a>
+      </div>
+      <div class="microcopy">Sem contrato. Sem compromisso. 30 minutos pra encontrar seu ponto cego.</div>
+    </div>
+
+    <div class="curve-card">
+      <div class="cc-head">
+        <span class="cc-title">FATURAMENTO · 6 MESES</span>
+        <span class="cc-tag mono">RESULTADO REAL · E-COMMERCE</span>
+      </div>
+      <div class="cc-hero-stat">
+        <span class="cc-hero-num">R$ 1,5 milhão</span>
+        <span class="cc-hero-lab">faturados em 6 meses de estratégias</span>
+      </div>
+      <svg id="curveSvg" viewBox="0 0 460 250" width="100%">
+        <defs>
+          <linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#5660FF"/>
+            <stop offset="100%" stop-color="#1B23A8"/>
+          </linearGradient>
+          <linearGradient id="barGradPeak" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#8B92FF"/>
+            <stop offset="100%" stop-color="#303CFC"/>
+          </linearGradient>
+        </defs>
+        <g class="grid">
+          <line x1="0" y1="40" x2="460" y2="40"/>
+          <line x1="0" y1="95" x2="460" y2="95"/>
+          <line x1="0" y1="150" x2="460" y2="150"/>
+          <line x1="0" y1="205" x2="460" y2="205"/>
+        </g>
+
+        <rect class="bar" x="17" y="125.3" width="46" height="79.7" rx="4"/>
+        <rect class="bar" x="95" y="126.7" width="46" height="78.3" rx="4"/>
+        <rect class="bar" x="173" y="86.6" width="46" height="118.4" rx="4"/>
+        <rect class="bar" x="251" y="111.9" width="46" height="93.1" rx="4"/>
+        <rect class="bar" x="329" y="147.4" width="46" height="57.6" rx="4"/>
+        <rect class="bar bar-peak" x="407" y="30" width="46" height="175" rx="4"/>
+
+        <g class="val-label">
+          <text x="40" y="115" text-anchor="middle">195k</text>
+          <text x="118" y="117" text-anchor="middle">191k</text>
+          <text x="196" y="77" text-anchor="middle">289k</text>
+          <text x="274" y="102" text-anchor="middle">228k</text>
+          <text x="352" y="138" text-anchor="middle">141k</text>
+          <text x="430" y="21" text-anchor="middle" class="val-peak">428k</text>
+        </g>
+        <g class="month-label">
+          <text x="40" y="222" text-anchor="middle">Jan</text>
+          <text x="118" y="222" text-anchor="middle">Fev</text>
+          <text x="196" y="222" text-anchor="middle">Mar</text>
+          <text x="274" y="222" text-anchor="middle">Abr</text>
+          <text x="352" y="222" text-anchor="middle">Mai</text>
+          <text x="430" y="222" text-anchor="middle">Jun</text>
+        </g>
+      </svg>
+      <div class="metrics-strip">
+        <div>
+          <div class="m-val">+120%</div>
+          <div class="m-lab">Faturamento</div>
+        </div>
+        <div>
+          <div class="m-val">+132%</div>
+          <div class="m-lab">Vendas</div>
+        </div>
+        <div>
+          <div class="m-val">+32%</div>
+          <div class="m-lab">Conversão</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PARA QUEM ============ -->
+<section class="paper-section" id="para-quem">
+  <div class="wrap funnel-1">
+    <div class="reveal">
+      <div class="eyebrow">Pra quem é este diagnóstico</div>
+      <h2>Feito pra loja que já tem investimento rodando.</h2>
+    </div>
+    <div class="fit-grid">
+      <div class="fit-card yes reveal">
+        <h3>Faz sentido se você</h3>
+        <ul>
+          <li>Já investe entre R$10 mil e R$30 mil por mês em mídia paga</li>
+          <li>Tem loja rodando (Tray, Nuvemshop, Shopify ou VTEX) e sente que travou</li>
+          <li>Não sabe se o problema é criativo, oferta ou o próprio site</li>
+          <li>Quer entender onde a receita está vazando antes de aumentar a verba</li>
+        </ul>
+      </div>
+      <div class="fit-card no reveal">
+        <h3>Não faz sentido se você</h3>
+        <ul>
+          <li>Ainda não tem investimento ativo em anúncios online</li>
+          <li>Busca fórmula pronta sem testar nada na própria operação</li>
+          <li>Não tem estoque ou estrutura pra sustentar mais pedido chegando</li>
+          <li>Está satisfeito com o resultado atual e não quer escalar agora</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ METODOLOGIA ============ -->
+<section class="method-section" id="metodologia">
+  <div class="wrap funnel-2">
+    <div class="reveal">
+      <div class="eyebrow">Como a Buzz enxerga sua conta</div>
+      <h2>Metodologia Escala Pro</h2>
+      <p class="lede">O funil tem três pontos importantes. Quando um deles trava, aumentar verba só faz o problema custar mais caro. Por isso o diagnóstico olha os 3 pontos antes de recomendar qualquer coisa.</p>
+    </div>
+
+    <div class="stage reveal">
+      <div class="stage-tag">Topo de funil</div>
+      <div>
+        <h3>Público qualificado</h3>
+        <p>Estrutura de campanhas em Meta Ads e Google Ads planejada pra atrair quem converte, não só quem clica. Segmentação, criativos e orçamento analisados junto, não isolados.</p>
+      </div>
+    </div>
+    <div class="stage reveal">
+      <div class="stage-tag">Meio de funil</div>
+      <div>
+        <h3>Conversão on-site</h3>
+        <p>Diagnóstico do funil da própria loja: home, página dos produtos, carrinho, checkout, oferta e etc. É aqui que a maioria das lojas perde receita sem perceber: o clique chega, a venda não fecha.</p>
+      </div>
+    </div>
+    <div class="stage reveal">
+      <div class="stage-tag">Fundo de funil</div>
+      <div>
+        <h3>Escala com margem</h3>
+        <p>Leitura de ROAS real por produto e por campanha, pra saber exatamente onde dá pra aumentar o investimento com segurança, e onde aumentar só ia queimar dinheiro.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ O QUE VOCÊ RECEBE ============ -->
+<section class="deliver-section">
+  <div class="wrap funnel-3">
+    <div class="reveal">
+      <div class="eyebrow">Na prática</div>
+      <h2>O que você recebe nos 30 minutos de diagnóstico</h2>
+    </div>
+    <ul class="check-list reveal">
+      <li><span class="check-mark">✓</span>Análise das suas campanhas atuais de Meta e Google Ads, com o gargalo real apontado</li>
+      <li><span class="check-mark">✓</span>Comparação da sua taxa de conversão com o ideal do seu segmento</li>
+      <li><span class="check-mark">✓</span>Mapa do funil: cada etapa, do primeiro contato até onde você perde a venda</li>
+      <li><span class="check-mark">✓</span>Plano de ação com prioridades: o que resolver primeiro e por quê</li>
+    </ul>
+    <div class="disclaimer">Sem apresentação de vendas disfarçada de diagnóstico. Se não fizer sentido continuar, você sai só com o plano.</div>
+  </div>
+</section>
+
+<!-- ============ CTA FINAL ============ -->
+<section class="final-section" id="diagnostico">
+  <div class="wrap funnel-4">
+    <div class="reveal">
+      <div class="eyebrow">Vamos escalar sua loja?</div>
+      <h2>Marque seu diagnóstico gratuito</h2>
+      <p class="lede">Preencha os dados abaixo: a conversa abre direto no WhatsApp, com o seu contexto já preenchido.</p>
+    </div>
+
+    <form class="lead-form reveal" id="leadForm">
+      <div class="field">
+        <label for="nome">Nome</label>
+        <input id="nome" type="text" placeholder="Seu nome" required>
+      </div>
+      <div class="field">
+        <label for="whats">WhatsApp</label>
+        <input id="whats" type="tel" placeholder="(17) 90000-0000" required>
+      </div>
+      <div class="field">
+        <label for="loja">Link da loja</label>
+        <input id="loja" type="text" placeholder="suaLoja.com.br" required>
+      </div>
+      <div class="field">
+        <label for="verba">Investimento atual em mídia por mês</label>
+        <select id="verba">
+          <option>Menos de R$10 mil</option>
+          <option selected>R$10 mil – R$20 mil</option>
+          <option>R$20 mil – R$30 mil</option>
+          <option>Acima de R$30 mil</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="dor">Qual seu maior desafio hoje?</label>
+        <select id="dor">
+          <option>Gerar mais vendas</option>
+          <option>Reduzir CAC</option>
+          <option>Escalar o que já funciona</option>
+          <option>Organizar a operação de tráfego</option>
+          <option>Outro</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary cursor-hover">Chamar no WhatsApp →</button>
+      <div class="form-note">Resposta em até 1 dia útil</div>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap funnel-1">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="./assets/buzz-logo-horizontal.png" alt="Buzz Mídia">
+        <p>Aceleradora de e-commerce especializada em Meta Ads, Google Ads e conversão. Metodologia Escala Pro.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <div class="footer-col-title">Índice</div>
+          <a href="#para-quem" class="cursor-hover">Para quem</a>
+          <a href="#metodologia" class="cursor-hover">Método</a>
+          <a href="#diagnostico" class="cursor-hover">Contato</a>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Redes</div>
+          <!-- troque os # abaixo pelos links reais do Instagram/LinkedIn da Buzz -->
+          <a href="#" class="cursor-hover">Instagram</a>
+          <a href="#" class="cursor-hover">LinkedIn</a>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Contato</div>
+          <a href="https://wa.me/5517992631686" class="cursor-hover" target="_blank" rel="noopener">(17) 99263-1686</a>
+          <span>Atendimento remoto</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Buzz Mídia. Todos os direitos reservados.</p>
+      <p>Aceleradora de e-commerce · Meta Ads &amp; Google Ads</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // dual cursor system
+  const cursorDot = document.getElementById('cursorDot');
+  const cursorGlow = document.getElementById('cursorGlow');
+  let mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+  let dotPos = { x: mouse.x, y: mouse.y };
+  let glowPos = { x: mouse.x, y: mouse.y };
+
+  window.addEventListener('mousemove', (e) => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+  });
+
+  function renderCursor(){
+    dotPos.x += (mouse.x - dotPos.x) * 0.3;
+    dotPos.y += (mouse.y - dotPos.y) * 0.3;
+    glowPos.x += (mouse.x - glowPos.x) * 0.08;
+    glowPos.y += (mouse.y - glowPos.y) * 0.08;
+    cursorDot.style.left = dotPos.x + 'px';
+    cursorDot.style.top = dotPos.y + 'px';
+    cursorGlow.style.left = glowPos.x + 'px';
+    cursorGlow.style.top = glowPos.y + 'px';
+    requestAnimationFrame(renderCursor);
+  }
+  renderCursor();
+
+  document.querySelectorAll('.cursor-hover').forEach((el) => {
+    el.addEventListener('mouseenter', () => {
+      cursorDot.classList.add('hovering');
+      cursorGlow.classList.add('hovering');
+    });
+    el.addEventListener('mouseleave', () => {
+      cursorDot.classList.remove('hovering');
+      cursorGlow.classList.remove('hovering');
+    });
+  });
+
+  // parallax background blobs
+  const parallaxEls = document.querySelectorAll('[data-speed]');
+  let scrollY = window.scrollY;
+  window.addEventListener('scroll', () => {
+    scrollY = window.scrollY;
+    requestAnimationFrame(() => {
+      parallaxEls.forEach(el => {
+        const speed = parseFloat(el.getAttribute('data-speed'));
+        const yPos = -(scrollY * speed);
+        const xPos = (mouse.x - window.innerWidth / 2) * speed * 0.5;
+        el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
+      });
+    });
+  }, { passive: true });
+
+  // 3D tilt on the hero chart card
+  const tiltCard = document.querySelector('.curve-card');
+  if (tiltCard) {
+    tiltCard.addEventListener('mousemove', (e) => {
+      const rect = tiltCard.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const rotateX = ((y - rect.height / 2) / (rect.height / 2)) * -3;
+      const rotateY = ((x - rect.width / 2) / (rect.width / 2)) * 3;
+      tiltCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
+    });
+    tiltCard.addEventListener('mouseleave', () => {
+      tiltCard.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+    });
+  }
+
+  // scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el=> io.observe(el));
+
+  // WhatsApp lead form — troque o número abaixo pelo WhatsApp real da Buzz (formato: 55DDDNUMERO)
+  const WHATSAPP_NUMBER = "5517992631686";
+
+  document.getElementById('leadForm').addEventListener('submit', function(ev){
+    ev.preventDefault();
+    const nome = document.getElementById('nome').value.trim();
+    const whats = document.getElementById('whats').value.trim();
+    const loja = document.getElementById('loja').value.trim();
+    const verba = document.getElementById('verba').value;
+    const dor = document.getElementById('dor').value;
+
+    const msg = `Olá! Sou ${nome}, quero agendar meu diagnóstico gratuito com a Buzz Mídia.%0A%0ALoja: ${loja}%0AWhatsApp: ${whats}%0AInvestimento atual em mídia: ${verba}%0AMaior desafio: ${dor}`;
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
+    window.open(url, '_blank');
+  });
+</script>
+
+</body>
+</html>
